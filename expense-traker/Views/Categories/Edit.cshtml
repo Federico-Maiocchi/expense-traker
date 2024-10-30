@@ -1,0 +1,124 @@
+﻿@model expense_traker.Models.Category
+
+@{
+    ViewData["Title"] = "Modifica Categoria";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <!--Card-->
+            <div class="card">
+                <!--Card Header -->
+                <div class="card-header">
+                    <h2>Modifica categoria</h2>
+                </div>
+                <!--Card Body -->
+                <div class="card-body">
+                    <!--<table id="example1" class="table table-bordered table-striped">-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Form -->
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="CategoryId" />
+                                <!-- Type -->
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                            <label class="btn btn-secondary @(Model.Type == "Expense" ? "active" : "")">
+                                                <input type="radio" name="Type" value="Expense" autocomplete="off" @(Model.Type == "Expense" ? "checked" : "")> Spese
+                                            </label>
+                                            <label class="btn btn-secondary @(Model.Type == "Income" ? "" : "")">
+                                                <input type="radio" name="Type" value="Income" autocomplete="off" @(Model.Type == "Income" ? "checked" : "")> Reddito
+                                            </label>
+                                        </div>
+                                        <span asp-validation-for="Type" class="text-danger"></span>
+                                        <!--
+                                        <label asp-for="Type" class="control-label"></label>
+                                        <input asp-for="Type" class="form-control" />
+                                        <span asp-validation-for="Type" class="text-danger"></span>
+                                        -->
+                                    </div>
+                                </div>
+                                <!-- Title -->
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label asp-for="Title" class="control-label"></label>
+                                        <input asp-for="Title" class="form-control" />
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Icon -->
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label asp-for="Icon" class="control-label"></label>
+                                        <input asp-for="Icon" class="form-control" />
+                                        <span asp-validation-for="Icon" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!-- Button -->
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <!-- Confirm -->
+                                            <div class="col-md-auto ">
+                                                <input type="submit" value="Modifica" class="btn btn-primary" />
+                                            </div>
+                                            <!-- Return CATEGORIES/INDEX -->
+                                            <div class="col-md-auto ">
+                                                <a asp-action="Index" class="btn btn-danger">Torna alla lista</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+<!--
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CategoryId" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Icon" class="control-label"></label>
+                <input asp-for="Icon" class="form-control" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+-->
+

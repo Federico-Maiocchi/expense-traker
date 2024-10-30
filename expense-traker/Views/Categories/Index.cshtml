@@ -1,0 +1,101 @@
+﻿@model IEnumerable<expense_traker.Models.Category>
+
+@{
+    ViewData["Title"] = "Categorie";
+}
+
+<!-- Card -->
+<div class="card">
+    <!--Card Header -->
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="">Lista Categorie</h2>
+        <!-- Route Create -->
+        <div class="py-2">
+            <a asp-action="Create" class="btn btn-success">Crea Categoria</a>
+        </div>
+    </div>
+    <!--Card body -->
+    <div class="card-body">
+        <!--Table-->
+        <table id="example1" class="table table-bordered table-striped">
+            <!--Thead-->
+            <thead>
+                <tr>
+                    <!--Title + Icon-->
+                    <th>
+                        @Html.DisplayNameFor(model => model.TitleWithIcon)
+                    </th>
+                    <!--Title-->
+                    <!--
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    -->
+                    <!--Icon-->
+                    <!--
+                    <th>
+                        @Html.DisplayNameFor(model => model.Icon)
+                    </th>
+                    -->
+                    <!--Type-->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <!--Edit-->
+                    <th>Modifica</th>
+                    <!--Details-->
+                    <th>Dettagli</th>
+                    <!--Delete-->
+                    <th>Elimina</th>
+                </tr>
+            </thead>
+            <!--Tbody-->
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <!--Title + icon-->
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TitleWithIcon)
+                    </td>
+                    <!--Title-->
+                    <!--
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    -->
+                    <!--Icon-->
+                    <!--
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Icon)
+                    </td>
+                    -->
+                    <!--Type-->
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.Type) *@
+                        @if (item.Type == "Expense")
+                        {
+                            <span class="badge rounded-pill bg-danger fs-6">Spese</span>
+                        }
+                        else
+                        {
+                            <span class="badge rounded-pill bg-success fs-6">Reddito</span>
+                        }
+                    </td>
+                    <!--Edit-->
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-primary"><i class="fa fa-wrench"></i></a>
+                    </td>
+                    <!--Details-->
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.CategoryId" class="btn btn-warning"><i class="fa fa-eye"></i></a>
+                    </td>
+                    <!--Delete-->
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.CategoryId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<expense_traker.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Transazioni Reddito";
+}
+
+<!-- Route Create -->
+<!--
+<div class="py-2">
+    <a asp-action="Create" class="btn btn-success">Aggiungi nuova transazione</a>
+</div>
+-->
+<!-- Card -->
+<div class="card">
+    <!--Card Header -->
+    <div class="card-header">
+        <h2 class="">Lista transizioni Income</h2>
+    </div>
+    <!--Card body -->
+    <div class="card-body">
+        <!--Table-->
+        <table id="example1" class="table table-bordered table-striped">
+            <!--Thead-->
+            <thead>
+                <tr>
+                    <!--Category title + icon-->
+                    <th>@Html.DisplayNameFor(model => model.Category.TitleWithIcon)</th>
+                    <!--Category-->
+                    <!--
+                    <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    -->
+                    <!--Amount-->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </th>
+                    <!--Note-->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Note)
+                    </th>
+                    <!--Date-->
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <!--Actions-->
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <!--Thead-->
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <!--Category title + icon-->
+                        <td>@Html.DisplayFor(modelItem => item.Category.TitleWithIcon)</td>
+                        <!--Category-->
+                        <!--
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Category.CategoryId)
+                        </td>
+                        -->
+                        <!--Amount-->
+                        <td>
+                            @*  @Html.DisplayFor(modelItem => item.Amount) *@
+                            @Html.DisplayFor(modelItem => item.AmountWithSymbol)
+                        </td>
+                        <!--Note-->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <!--Date-->
+                        <td>
+                            @* @Html.DisplayFor(modelItem => item.Date) *@
+                            @item.FormattedDate
+                        </td>
+                        <!--Actions-->
+                        <td>
+                            <div class="dropdown btn btn-warning">
+                                <a class="dropdown-toggle text-dark" data-toggle="dropdown" href="#">
+                                    Azioni <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">
+                                        <a asp-action="Edit" asp-route-id="@item.TransactionId" class="btn btn-primary"><i class="fa fa-wrench"></i> Modifica</a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown-item">
+                                        <a asp-action="Details" asp-route-id="@item.TransactionId" class="btn btn-warning"><i class="fa fa-eye"></i> Dettagli</a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown-item">
+                                        <a asp-action="Delete" asp-route-id="@item.TransactionId" class="btn btn-danger"><i class="fa fa-trash"></i> Cancella</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

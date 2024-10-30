@@ -1,0 +1,153 @@
+﻿@model expense_traker.Models.Transaction
+
+@{
+    ViewData["Title"] = "Nuova Transazione";
+}
+
+<!--COntainer-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <!--Card-->
+            <div class="card">
+                <!--Card Header -->
+                <div class="card-header">
+                    <h2>Creazione nuova transazione</h2>
+                </div>
+                <!--Card Body -->
+                <div class="card-body">
+                    <!--<table id="example1" class="table table-bordered table-striped">-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--Form-->
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <!--Date-->
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <label asp-for="Date"  class="control-label"></label>
+                                        <input asp-for="Date" type="date" class="form-control" />
+                                        <span asp-validation-for="Date" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!--Category-->
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        
+                                        <label asp-for="CategoryId" class="control-label"></label>
+                                        <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                                        
+                                        
+                                        @* <label asp-for="CategoryId"></label>
+                                        <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                            <option value="">Scegli categoria</option>
+                                        </select>
+                                        <span asp-validation-for="CategoryId" class="text-danger"></span> *@
+                                        
+
+                                    </div>
+                                </div>
+                                <!--Amount-->
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <!--
+                                        <label asp-for="Amount" class="control-label"></label>
+                                        <input asp-for="Amount" class="form-control" />
+                                        <span asp-validation-for="Amount" class="text-danger"></span>
+                                        -->
+
+                                        <label asp-for="Amount" class="control-label"></label>
+                                        <div class="input-group">
+                                            <!--Icon value-->
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <!--
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                    
+                                                    <i class="fa-solid fa-euro-sign"></i>
+                                                    -->
+                                                    <p class="m-0">&euro;</p>
+                                                </span>
+                                            </div>
+                                            <input asp-for="Amount" type="text" class="form-control" />
+                                        </div>
+                                        <span asp-validation-for="Amount" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <!--Note-->
+                                <div class="col-md-10 ">
+                                    <div class="form-group">
+                                        <label asp-for="Note" class="control-label"></label>
+                                        <textarea asp-for="Note" class="form-control"></textarea>
+                                        <span asp-validation-for="Note" class="text-danger"></span>
+                                    </div>
+                                </div> 
+                                <!--button-->
+                                <div class="col-md-6 ">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <!-- Confirm -->
+                                            <div class="col-md-auto ">
+                                                <input type="submit" value="Aggiungi" class="btn btn-primary" />
+                                            </div>
+                                            <!-- Return TRANSACTIONS/INDEX -->
+                                            <div class="col-md-auto ">
+                                                <a asp-action="Index" class="btn btn-danger">Torna alla lista</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!--vista base-->
+<!--
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+-->
+
+

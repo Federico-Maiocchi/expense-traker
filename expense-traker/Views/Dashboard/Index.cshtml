@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+
+    //var categories = ViewBag.ExpenseByCategory as List<dynamic> ?? new List<dynamic>();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Includere jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Includere Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <!--Total Income-->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3>Totale Reddito</h3>
+                            </div>
+                            <div class="card-body d-flex align-items-center justify-content-center gap-3">
+                                <i class="fa-solid fa-euro-sign icon-euro me-2" style=""></i>
+                                <h1> @ViewBag.TotalIncome</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Total Expense-->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3>Totale Spese</h3>
+                            </div>
+                            <div class="card-body row align-items-center justify-content-center gap-3">
+                                <i class="fa-solid fa-euro-sign icon-euro"></i>
+                                <h1>@ViewBag.TotalExpense</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Balance-->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3>Bilancio</h3>
+                            </div>
+                            <div class="card-body row align-items-center justify-content-center gap-3">
+                                <span><i class="fa-solid fa-euro-sign icon-euro "></i></span>
+
+                                <h1>@ViewBag.Balance</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!--Chart Income-->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Categorie Reddito</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <!--
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    -->
+                                </div>
+                            </div>
+                            <div class="card-body" style="display: block;">
+                                <canvas id="incomeChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Chart Expense-->
+                    <div class="col-md-4">
+                        <div class="card ">
+                            <div class="card-header">
+                                <h3 class="card-title">Categorie Spese</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <!--
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    -->
+                                </div>
+                            </div>
+                            <div class="card-body" style="display: block;">
+                                <canvas id="expenseChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Chart totale-->
+                    <div class="col-md-4">
+                        <div class="card ">
+                            <div class="card-header">
+                                <h3 class="card-title">Tutte Le Categorie</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <!--
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                    -->
+                                </div>
+                            </div>
+                            <div class="card-body" style="display: block;">
+                                <canvas id="allCategoriesChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        // Grafico Income
+        var incomeChartCanvas = $('#incomeChart').get(0).getContext('2d');
+        var incomeCategoryNames = @Html.Raw(Json.Serialize(ViewBag.IncomeCategoryNames));
+        var incomeTotalAmounts = @Html.Raw(Json.Serialize(ViewBag.IncomeTotalAmounts));
+
+        var incomeData = {
+            labels: incomeCategoryNames,
+            datasets: [{
+                data: incomeTotalAmounts,
+                backgroundColor: ['#00c0ef', '#3c8dbc', '#f56954', '#f39c12', '#00a65a', '#d2d6de'],
+            }]
+        };
+
+        var incomeOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        };
+
+        new Chart(incomeChartCanvas, {
+            type: 'doughnut',
+            data: incomeData,
+            options: incomeOptions
+        });
+
+        // Grafico Expense
+        var expenseChartCanvas = $('#expenseChart').get(0).getContext('2d');
+        var expenseCategoryNames = @Html.Raw(Json.Serialize(ViewBag.ExpenseCategoryNames));
+        var expenseTotalAmounts = @Html.Raw(Json.Serialize(ViewBag.ExpenseTotalAmounts));
+
+        var expenseData = {
+            labels: expenseCategoryNames,
+            datasets: [{
+                data: expenseTotalAmounts,
+                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+            }]
+        };
+
+        var expenseOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        };
+
+        new Chart(expenseChartCanvas, {
+            type: 'doughnut',
+            data: expenseData,
+            options: expenseOptions
+        });
+
+        // Grafico All Categories
+        var allCategoriesChartCanvas = $('#allCategoriesChart').get(0).getContext('2d');
+        var allCategoryNames = @Html.Raw(Json.Serialize(ViewBag.AllCategoryNames));
+        var allTotalAmounts = @Html.Raw(Json.Serialize(ViewBag.AllTotalAmounts));
+
+        var allCategoriesData = {
+            labels: allCategoryNames,
+            datasets: [{
+                data: allTotalAmounts,
+                backgroundColor: ['#3c8dbc', '#f56954', '#00c0ef', '#f39c12', '#00a65a', '#d2d6de'],
+            }]
+        };
+
+        var allCategoriesOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        };
+
+        new Chart(allCategoriesChartCanvas, {
+            type: 'doughnut',
+            data: allCategoriesData,
+            options: allCategoriesOptions
+        });
+    });
+
+</script>
